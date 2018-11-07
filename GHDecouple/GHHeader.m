@@ -61,7 +61,6 @@
         _imageView.backgroundColor = [UIColor redColor];
         _imageView.layer.masksToBounds = YES;
         _imageView.layer.cornerRadius = 50;
-
     }
     return _imageView;
 }

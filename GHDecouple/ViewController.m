@@ -12,6 +12,7 @@
 #import "GHTableViewCell.h"
 #import "GHHeader.h"
 #import "GHTestViewController.h"
+#import "NSArray+Bounds.h"
 
 @interface ViewController ()<GHHeaderDelegate,GHTestViewControllerDelegate>
 @property (nonatomic , strong) UITableView *tableView;
@@ -28,37 +29,25 @@
     [self loadData];
 }
 - (void)testViewController:(GHTestViewController *)vc testString:(nonnull NSString *)testString indexPath:(nonnull NSIndexPath *)indexPath {
-    GHModel *model  = self.dataSource.dataArray[indexPath.row];
+    GHModel *model = self.dataSource.dataArray[indexPath.row];
     model.rightTitle = testString;
     [self.dataSource reloadData];
 }
 - (void)loadData {
     __weak __typeof(self) weakSelf = self;
-    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" table:self.tableView configuration:^(GHTableViewCell *cell, GHModel *model, GHModelHelper *modelHelper) {
-        cell.rowMData = model;
-        modelHelper.cellHeight = model.cellHeight;
-    } selectBlock:^(GHModel *model, NSIndexPath * _Nonnull indexPath, UITableView * _Nonnull table, GHModelHelper * _Nonnull modelHelper) {
-        if (model.cellType == GHModelCellTypeName) {
-            model.rightTitle = @"真的刷新了";
-            [modelHelper reloadData];
-            GHTestViewController *vc = [[GHTestViewController alloc]init];
-            vc.delegate = weakSelf;
-            [weakSelf.navigationController pushViewController:vc animated:YES];
-            NSLog(@"昵称");
-        } else if (model.cellType == GHModelCellTypeId) {
-            NSLog(@"id");
-        } else if (model.cellType == GHModelCellTypeSex) {
-            NSLog(@"性别");
-        } else if (model.cellType == GHModelCellTypeBirthday) {
-            NSLog(@"生日");
-        } else if (model.cellType == GHModelCellTypeSchool) {
-            NSLog(@"学校");
-        } else if (model.cellType == GHModelCellTypeZoon) {
-            NSLog(@"地区");
-        } else if (model.cellType == GHModelCellTypeSign) {
-            NSLog(@"签名");
-        }
+    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" table:self.tableView configurationCellCount:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper) {
+        modelHelper.count = model.items.count;
+    } configurationCellHeight:^(GHModel *model, NSIndexPath *indexPath, GHModelHelper * _Nonnull modelHelper) {
+        GHModel *rowMData = [model.items by_ObjectAtIndex:indexPath.row];
+        modelHelper.cellHeight = rowMData.cellHeight;
+    } configuration:^(GHTableViewCell *cell, GHModel *model, GHModelHelper * _Nonnull modelHelper, NSIndexPath * _Nonnull indexPath) {
+        GHModel *rowMData = [model.items by_ObjectAtIndex:indexPath.row];
+        cell.rowMData = rowMData;
+        
+    } selectBlock:^(id  _Nonnull model, NSIndexPath * _Nonnull indexPath, UITableView * _Nonnull table, GHModelHelper * _Nonnull modelHelper) {
+        
     }];
+
     [self.dataSource addDataArray:[GHModel creatModelData]];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self.dataSource;

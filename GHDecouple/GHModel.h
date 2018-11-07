@@ -27,6 +27,8 @@ typedef NS_ENUM (NSUInteger,GHModelCellType) {
 @property (nonatomic , copy)NSString *rightDetails;
 @property (nonatomic , assign)CGFloat cellHeight;
 @property (nonatomic , assign)BOOL hiddenLine;
+@property (nonatomic , strong)UIColor *sectionHeaderBackGroundColor;
+@property (nonatomic , strong)NSArray *items;
 
 + (NSArray *)creatModelData;
 @end

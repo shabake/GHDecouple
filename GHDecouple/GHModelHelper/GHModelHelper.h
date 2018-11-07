@@ -11,21 +11,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class GHModelHelper;
-typedef void (^ConfigurationCellBlock)(id cell, id model,GHModelHelper *modelHelper);
+typedef void (^ConfigurationCellCount)(id model,NSInteger section,GHModelHelper *modelHelper);
+typedef void (^ConfigurationCellHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
+
+typedef void (^ConfigurationCellBlock)(id cell, id model,GHModelHelper *modelHelper,NSIndexPath *indexPath);
 typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *table,GHModelHelper *modelHelper);
-typedef void (^CellHeightBlock)(id model);
 
 @interface GHModelHelper : NSObject<UITableViewDataSource,UITableViewDelegate>
-@property (nonatomic, copy)CellHeightBlock cellHeightBlock;
+/**
+ 
+ @param identifier cell唯一标识符
+ @param table tableView
+ @param configuration 默认参数
+ @param selectBlock 点击传参
+ */
+- (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table
+  configurationCellCount: (ConfigurationCellCount)configurationCellCount
+ configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
+           configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock;
 
-- (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock ;
+/** 动态高度 */
+@property (nonatomic , assign) CGFloat cellHeight;
+/** 字典数组 */
+@property (nonatomic , strong) NSMutableArray *dataArray;
 
-@property (nonatomic, strong)NSMutableArray *dataArray;
+@property (nonatomic , strong) UIView *sectionHeader;
+@property (nonatomic , strong) NSMutableArray *sectionHeaders;
+
+/** 动态高度 */
+@property (nonatomic , assign) CGFloat sectionHeaderHeight;
+@property (nonatomic , assign) NSInteger count;
+
 /** 添加数据源 */
 - (void)addDataArray:(NSArray *)dataArray;
 /** 刷新table */
 - (void)reloadData;
-@property (nonatomic , assign) CGFloat cellHeight;
 
 @end
 

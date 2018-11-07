@@ -22,6 +22,7 @@
 - (void)setRowMData:(GHModel *)rowMData {
     _rowMData = rowMData;
     self.leftTitle.text = rowMData.leftTitle;
+    NSLog(@"leftTitle%@",rowMData.leftTitle);
     self.rightTitle.text = rowMData.rightTitle;
     self.rightDetails.text = rowMData.rightDetails;
     if (rowMData.cellType == GHModelCellTypeId) {
