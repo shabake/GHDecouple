@@ -18,7 +18,6 @@ typedef void (^CellHeightBlock)(id model);
 @interface GHModelHelper : NSObject<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, copy)CellHeightBlock cellHeightBlock;
 
-+ (instancetype)sharedManager;
 - (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock ;
 
 @property (nonatomic, strong)NSMutableArray *dataArray;

@@ -15,16 +15,7 @@
 
 @end
 @implementation GHModelHelper
-+ (instancetype)sharedManager {
-    
-    static GHModelHelper *_instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-       
-        _instance = [[self alloc] init];
-    });
-    return _instance;
-}
+
 - (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock   {
     if(self = [super init]) {
         self.cellIdentifier = identifier;
