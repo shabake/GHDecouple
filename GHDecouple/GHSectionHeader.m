@@ -16,9 +16,9 @@
 @implementation GHSectionHeader
 
 - (void)setRowMData:(GHModel *)rowMData {
-    _rowMData = rowMData;
-    self.title.text = rowMData.sectionHeaderTitle;;
-    self.contentView.backgroundColor = rowMData.sectionBackGroundColor;
+//    _rowMData = rowMData;
+//    self.title.text = rowMData.sectionHeaderTitle;;
+//    self.contentView.backgroundColor = rowMData.sectionBackGroundColor;
 }
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithReuseIdentifier:reuseIdentifier]) {

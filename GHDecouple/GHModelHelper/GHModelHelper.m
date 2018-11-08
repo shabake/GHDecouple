@@ -17,13 +17,33 @@
 @property (nonatomic, copy) ConfigurationCellBlock configurationCellBlock;
 @property (nonatomic, copy) ConfigurationCellCount configurationCellCount;
 @property (nonatomic, copy) ConfigurationCellHeight configurationCellHeight;
+@property (nonatomic, copy) ConfigurationSectionHeaderHeight configurationSectionHeaderHeight;
 @property (nonatomic, copy) SelectBlock selectBlock;
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, copy)ConfigurationSectionHeader configurationSectionHeader;
 @end
 @implementation GHModelHelper
-
 - (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
+  configurationCellCount: (ConfigurationCellCount)configurationCellCount
+ configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
+           configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock {
+    if(self = [super init]) {
+        self.cellIdentifier = identifier;
+        self.configurationCellBlock = configuration;
+        self.configurationCellCount = configurationCellCount;
+        self.configurationCellHeight = configurationCellHeight;
+        self.configurationSectionHeader = configurationSectionHeader;
+
+        self.selectBlock = selectBlock;
+        self.table = table;
+        self.headerIdentifier = @"";
+        
+    }
+    return self;
+}
+- (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeaderHeight: (ConfigurationSectionHeaderHeight)configurationSectionHeaderHeight
 configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
  configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
@@ -35,12 +55,15 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
         self.configurationCellCount = configurationCellCount;
         self.configurationCellHeight = configurationCellHeight;
         self.configurationSectionHeader = configurationSectionHeader;
+        self.configurationSectionHeaderHeight = configurationSectionHeaderHeight;
+
         self.selectBlock = selectBlock;
         self.table = table;
+        self.headerIdentifier = @"";
+
     }
     return self;
 }
-
 - (void)addDataArray:(NSArray *)dataArray {
     if(!dataArray) return;
     
@@ -48,7 +71,6 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
         [self.dataArray removeAllObjects];
     }
     [self.dataArray addObjectsFromArray:dataArray];
-    
 }
 
 - (void)reloadData {
@@ -57,12 +79,9 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     id model = [self.dataArray by_ObjectAtIndex:section];
-    id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
-    if (!sectionHeader) {
-        sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
-    }
-    if (self.configurationSectionHeader) {
-        self.configurationSectionHeader(model, [NSIndexPath indexPathForRow:0 inSection:section], self, sectionHeader);
+  
+    if (self.configurationSectionHeaderHeight) {
+        self.configurationSectionHeaderHeight(model, [NSIndexPath indexPathForRow:0 inSection:section], self);
     }
     return self.sectionHeaderHeight;
 }

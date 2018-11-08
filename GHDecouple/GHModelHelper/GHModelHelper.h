@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class GHModelHelper,GHSectionHeader;
 typedef void (^ConfigurationCellCount)(id model,NSInteger section,GHModelHelper *modelHelper);
 typedef void (^ConfigurationCellHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
+typedef void (^ConfigurationSectionHeaderHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
 
 typedef void (^ConfigurationSectionHeader)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper,id view);
 
@@ -28,6 +29,13 @@ typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *tabl
  @param selectBlock 点击传参
  */
 - (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
+  configurationCellCount: (ConfigurationCellCount)configurationCellCount
+ configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
+           configuration: (ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock;
+
+- (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeaderHeight: (ConfigurationSectionHeaderHeight)configurationSectionHeaderHeight
 configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
  configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
