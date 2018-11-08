@@ -37,6 +37,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 @property (nonatomic , assign) CGFloat cellHeight;
 /** 字典数组 */
 @property (nonatomic , strong) NSMutableArray *dataArray;
+@property (nonatomic, strong) NSString *headerIdentifier;
 
 @property (nonatomic , strong) UIView *sectionHeader;
 @property (nonatomic , strong) NSMutableArray *sectionHeaders;

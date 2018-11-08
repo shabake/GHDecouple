@@ -49,8 +49,10 @@
 
 + (GHModel *)creatSecond {
     GHModel *sectionModel = [[GHModel alloc]init];
-    sectionModel.sectionHeaderTitle = @"第二组红包也就是50块钱而已";
+    sectionModel.sectionHeaderTitle = @"sectionHeader";
     sectionModel.sectionHeaderHeight = 100;
+    sectionModel.headerIdentifier = @"sectionHeader";
+    sectionModel.sectionType = GHModelSectionTypeSecond;
     NSArray *leftTitles = @[@"第二组第一个",@"第二组第二个"];
     NSArray *rightTitles = @[@"2",@"1",@"女",@"点击设置生日",@"点击设置学校",@"点击设置地区",@"点击设置签名"];
     NSArray *types = @[
@@ -72,9 +74,10 @@
 }
 + (GHModel *)creatFirst {
     GHModel *sectionModel = [[GHModel alloc]init];
-    sectionModel.sectionHeaderTitle = @"第一组红包有点大";
+    sectionModel.sectionHeaderTitle = @"GHSectionTest";
     sectionModel.sectionHeaderHeight = 44;
-
+    sectionModel.sectionType = GHModelSectionTypeFirst;
+    sectionModel.headerIdentifier = @"GHSectionTest";
     NSArray *leftTitles = @[@"第一组",@"抖音ID",@"性别",@"生日",@"学校",@"地区",@"签名"];
     NSArray *rightTitles = @[@"水冰月",@"123456",@"女",@"点击设置生日",@"点击设置学校",@"点击设置地区",@"点击设置签名"];
     NSArray *types = @[    @(GHModelCellTypeName),

@@ -14,6 +14,7 @@
 #import "GHTestViewController.h"
 #import "NSArray+Bounds.h"
 #import "GHSectionHeader.h"
+#import "GHSectionTest.h"
 
 @interface ViewController ()<GHHeaderDelegate,GHTestViewControllerDelegate>
 @property (nonatomic , strong) UITableView *tableView;
@@ -36,8 +37,16 @@
 }
 - (void)loadData {
     __weak __typeof(self) weakSelf = self;
-    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" headerIdentifier:@"sectionHeader" table:self.tableView configurationSectionHeader:^(GHModel *model, NSIndexPath * _Nonnull indexPath, GHModelHelper * _Nonnull modelHelper, GHSectionHeader *sectionHeaeder) {
-        sectionHeaeder.rowMData = model;
+    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" headerIdentifier:@"" table:self.tableView configurationSectionHeader:^(GHModel *model, NSIndexPath * _Nonnull indexPath, GHModelHelper * _Nonnull modelHelper, id sectionHeaeder) {
+        modelHelper.headerIdentifier = model.headerIdentifier;
+        NSLog(@"%@",model.headerIdentifier);
+        if (model.sectionType == GHModelSectionTypeFirst) {
+            GHSectionHeader *section = (GHSectionHeader *)sectionHeaeder;
+            section.rowMData = model;
+        } else if (model.sectionType == GHModelSectionTypeSecond) {
+            GHSectionTest *section = (GHSectionTest *)sectionHeaeder;
+            section.rowMData = model;
+        }
         modelHelper.sectionHeaderHeight = model.sectionHeaderHeight;
     } configurationCellCount:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper) {
         modelHelper.count = model.items.count;
@@ -75,6 +84,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
         [_tableView registerClass:[GHTableViewCell class] forCellReuseIdentifier:@"UITableViewCellID"];
         [_tableView registerClass:[GHSectionHeader class] forHeaderFooterViewReuseIdentifier:@"sectionHeader"];
+        [_tableView registerClass:[GHSectionTest class] forHeaderFooterViewReuseIdentifier:@"GHSectionTest"];
 
         _tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0.1f, .1f, .1f, .1f)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

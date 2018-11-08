@@ -13,7 +13,6 @@
 
 @interface GHModelHelper()
 @property (nonatomic, strong) NSString *cellIdentifier;
-@property (nonatomic, strong) NSString *headerIdentifier;
 
 @property (nonatomic, copy) ConfigurationCellBlock configurationCellBlock;
 @property (nonatomic, copy) ConfigurationCellCount configurationCellCount;
