@@ -39,6 +39,7 @@
 		0435D0F32192CBAE008F7B4A /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435D0E72192CBAE008F7B4A /* NSObject+MJKeyValue.m */; };
 		0435D0F42192CBAE008F7B4A /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435D0E92192CBAE008F7B4A /* NSObject+MJProperty.m */; };
 		0435D0F52192CBAE008F7B4A /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0435D0EB2192CBAE008F7B4A /* NSString+MJExtension.m */; };
+		04DAF4C72193E2B200CABB8C /* GHSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DAF4C62193E2B100CABB8C /* GHSectionHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,8 @@
 		0435D0E92192CBAE008F7B4A /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
 		0435D0EA2192CBAE008F7B4A /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		0435D0EB2192CBAE008F7B4A /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		04DAF4C52193E2B100CABB8C /* GHSectionHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHSectionHeader.h; sourceTree = "<group>"; };
+		04DAF4C62193E2B100CABB8C /* GHSectionHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHSectionHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 				0435D08921916095008F7B4A /* AppDelegate.h */,
 				0435D0A321916553008F7B4A /* GHModel.h */,
 				0435D0A421916553008F7B4A /* GHModel.m */,
+				04DAF4C52193E2B100CABB8C /* GHSectionHeader.h */,
+				04DAF4C62193E2B100CABB8C /* GHSectionHeader.m */,
 				0435D08A21916095008F7B4A /* AppDelegate.m */,
 				0435D08C21916095008F7B4A /* ViewController.h */,
 				0435D08D21916095008F7B4A /* ViewController.m */,
@@ -327,6 +332,7 @@
 				0435D0F52192CBAE008F7B4A /* NSString+MJExtension.m in Sources */,
 				0435D0D52192B22C008F7B4A /* GHTestViewController.m in Sources */,
 				0435D0C921927B4A008F7B4A /* MASLayoutConstraint.m in Sources */,
+				04DAF4C72193E2B200CABB8C /* GHSectionHeader.m in Sources */,
 				0435D0ED2192CBAE008F7B4A /* MJFoundation.m in Sources */,
 				0435D0A221916301008F7B4A /* GHModelHelper.m in Sources */,
 				0435D0EC2192CBAE008F7B4A /* MJExtensionConst.m in Sources */,

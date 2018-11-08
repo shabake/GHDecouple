@@ -13,6 +13,7 @@
 #import "GHHeader.h"
 #import "GHTestViewController.h"
 #import "NSArray+Bounds.h"
+#import "GHSectionHeader.h"
 
 @interface ViewController ()<GHHeaderDelegate,GHTestViewControllerDelegate>
 @property (nonatomic , strong) UITableView *tableView;
@@ -35,19 +36,21 @@
 }
 - (void)loadData {
     __weak __typeof(self) weakSelf = self;
-    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" table:self.tableView configurationCellCount:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper) {
+    self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" headerIdentifier:@"sectionHeader" table:self.tableView configurationSectionHeader:^(GHModel *model, NSIndexPath * _Nonnull indexPath, GHModelHelper * _Nonnull modelHelper, GHSectionHeader *sectionHeaeder) {
+        sectionHeaeder.rowMData = model;
+        modelHelper.sectionHeaderHeight = model.sectionHeaderHeight;
+    } configurationCellCount:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper) {
         modelHelper.count = model.items.count;
-    } configurationCellHeight:^(GHModel *model, NSIndexPath *indexPath, GHModelHelper * _Nonnull modelHelper) {
+    } configurationCellHeight:^(GHModel *model, NSIndexPath *indexPath, GHModelHelper *modelHelper) {
         GHModel *rowMData = [model.items by_ObjectAtIndex:indexPath.row];
         modelHelper.cellHeight = rowMData.cellHeight;
-    } configuration:^(GHTableViewCell *cell, GHModel *model, GHModelHelper * _Nonnull modelHelper, NSIndexPath * _Nonnull indexPath) {
+    } configuration:^(GHTableViewCell *cell, GHModel *model, GHModelHelper * modelHelper, NSIndexPath *indexPath) {
         GHModel *rowMData = [model.items by_ObjectAtIndex:indexPath.row];
         cell.rowMData = rowMData;
-        
     } selectBlock:^(id  _Nonnull model, NSIndexPath * _Nonnull indexPath, UITableView * _Nonnull table, GHModelHelper * _Nonnull modelHelper) {
-        
+        NSLog(@"%@",indexPath);
     }];
-
+ 
     [self.dataSource addDataArray:[GHModel creatModelData]];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self.dataSource;
@@ -71,6 +74,8 @@
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
         [_tableView registerClass:[GHTableViewCell class] forCellReuseIdentifier:@"UITableViewCellID"];
+        [_tableView registerClass:[GHSectionHeader class] forHeaderFooterViewReuseIdentifier:@"sectionHeader"];
+
         _tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0.1f, .1f, .1f, .1f)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor blackColor];

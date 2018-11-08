@@ -9,19 +9,23 @@
 #import "GHModelHelper.h"
 #import "NSArray+Bounds.h"
 #import <objc/runtime.h>
+#import "GHSectionHeader.h"
 
 @interface GHModelHelper()
 @property (nonatomic, strong) NSString *cellIdentifier;
+@property (nonatomic, strong) NSString *headerIdentifier;
+
 @property (nonatomic, copy) ConfigurationCellBlock configurationCellBlock;
 @property (nonatomic, copy) ConfigurationCellCount configurationCellCount;
 @property (nonatomic, copy) ConfigurationCellHeight configurationCellHeight;
 @property (nonatomic, copy) SelectBlock selectBlock;
 @property (nonatomic, strong) UITableView *table;
-
+@property (nonatomic, copy)ConfigurationSectionHeader configurationSectionHeader;
 @end
 @implementation GHModelHelper
 
-- (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table
+- (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
  configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
            configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock {
@@ -31,6 +35,7 @@
         self.configurationCellBlock = configuration;
         self.configurationCellCount = configurationCellCount;
         self.configurationCellHeight = configurationCellHeight;
+        self.configurationSectionHeader = configurationSectionHeader;
         self.selectBlock = selectBlock;
         self.table = table;
     }
@@ -44,19 +49,36 @@
         [self.dataArray removeAllObjects];
     }
     [self.dataArray addObjectsFromArray:dataArray];
+    
 }
 
 - (void)reloadData {
     [self.table reloadData];
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return self.sectionHeaderHeight > 0 ?self.sectionHeaderHeight:44.f;
-//}
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//
-//    return self.sectionHeaders.count ? [self.sectionHeaders by_ObjectAtIndex:section]: self.sectionHeader;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    id model = [self.dataArray by_ObjectAtIndex:section];
+    GHSectionHeader *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
+    if (!sectionHeader) {
+        sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
+    }
+    if (self.configurationSectionHeader) {
+        self.configurationSectionHeader(model, [NSIndexPath indexPathForRow:0 inSection:section], self, sectionHeader);
+    }
+    return self.sectionHeaderHeight;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    id model = [self.dataArray by_ObjectAtIndex:section];
+
+    GHSectionHeader *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
+    if (!sectionHeader) {
+        sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
+    }
+    if (self.configurationSectionHeader) {
+        self.configurationSectionHeader(model, [NSIndexPath indexPathForRow:0 inSection:section], self, sectionHeader);
+    }
+    return sectionHeader;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id model = [self.dataArray by_ObjectAtIndex:indexPath.section];
     if (self.configurationCellHeight) {

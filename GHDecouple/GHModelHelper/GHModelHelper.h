@@ -10,9 +10,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@class GHModelHelper;
+@class GHModelHelper,GHSectionHeader;
 typedef void (^ConfigurationCellCount)(id model,NSInteger section,GHModelHelper *modelHelper);
 typedef void (^ConfigurationCellHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
+
+typedef void (^ConfigurationSectionHeader)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper,GHSectionHeader *sectionHeader);
 
 typedef void (^ConfigurationCellBlock)(id cell, id model,GHModelHelper *modelHelper,NSIndexPath *indexPath);
 typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *table,GHModelHelper *modelHelper);
@@ -25,7 +27,8 @@ typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *tabl
  @param configuration 默认参数
  @param selectBlock 点击传参
  */
-- (id)initWithIdentifier:(NSString *)identifier table: (UITableView *)table
+- (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
+configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
  configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
            configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock;
@@ -37,7 +40,6 @@ typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *tabl
 
 @property (nonatomic , strong) UIView *sectionHeader;
 @property (nonatomic , strong) NSMutableArray *sectionHeaders;
-
 /** 动态高度 */
 @property (nonatomic , assign) CGFloat sectionHeaderHeight;
 @property (nonatomic , assign) NSInteger count;

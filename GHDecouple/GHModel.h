@@ -22,6 +22,9 @@ typedef NS_ENUM (NSUInteger,GHModelCellType) {
 @interface GHModel : NSObject
 /** cell类型 */
 @property (nonatomic , assign) GHModelCellType cellType;
+@property (nonatomic , copy)NSString *sectionHeaderTitle;
+@property (nonatomic , assign)CGFloat sectionHeaderHeight;
+
 @property (nonatomic , copy)NSString *leftTitle;
 @property (nonatomic , copy)NSString *rightTitle;
 @property (nonatomic , copy)NSString *rightDetails;
