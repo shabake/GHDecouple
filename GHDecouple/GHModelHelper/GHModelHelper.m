@@ -58,7 +58,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     id model = [self.dataArray by_ObjectAtIndex:section];
-    GHSectionHeader *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
+    id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
     if (!sectionHeader) {
         sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
     }
@@ -70,7 +70,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     id model = [self.dataArray by_ObjectAtIndex:section];
 
-    GHSectionHeader *sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
+    id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
     if (!sectionHeader) {
         sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
     }

@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^ConfigurationCellCount)(id model,NSInteger section,GHModelHelper *modelHelper);
 typedef void (^ConfigurationCellHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
 
-typedef void (^ConfigurationSectionHeader)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper,GHSectionHeader *sectionHeader);
+typedef void (^ConfigurationSectionHeader)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper,id view);
 
 typedef void (^ConfigurationCellBlock)(id cell, id model,GHModelHelper *modelHelper,NSIndexPath *indexPath);
 typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *table,GHModelHelper *modelHelper);
