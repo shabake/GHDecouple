@@ -46,6 +46,8 @@
         } else if (model.sectionType == GHModelSectionTypeSecond) {
             GHSectionTest *section = (GHSectionTest *)sectionHeaeder;
             section.rowMData = model;
+        } else {
+            
         }
         modelHelper.sectionHeaderHeight = model.sectionHeaderHeight;
     } configurationCellCount:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper) {

@@ -18,16 +18,17 @@
 - (void)setRowMData:(GHModel *)rowMData {
     _rowMData = rowMData;
     self.title.text = rowMData.sectionHeaderTitle;;
+    self.contentView.backgroundColor = rowMData.sectionBackGroundColor;
 }
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithReuseIdentifier:reuseIdentifier]) {
         [self setupUI];
-
     }
     return self;
 }
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
+
     }
     return self;
 }
@@ -45,6 +46,7 @@
         _title.textColor = [UIColor lightGrayColor];
         _title.font = [UIFont systemFontOfSize:15];
         _title.text = @"dasda";
+        _title.backgroundColor = [UIColor clearColor];
     }
     return _title;
 }

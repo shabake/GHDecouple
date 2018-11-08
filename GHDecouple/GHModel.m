@@ -43,7 +43,13 @@
     NSMutableArray *dataArray = [NSMutableArray array];
     [dataArray addObject:[self creatFirst]];
     [dataArray addObject:[self creatSecond]];
-    
+    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
     return dataArray.copy;
 }
 
@@ -53,6 +59,7 @@
     sectionModel.sectionHeaderHeight = 100;
     sectionModel.headerIdentifier = @"sectionHeader";
     sectionModel.sectionType = GHModelSectionTypeSecond;
+    sectionModel.sectionBackGroundColor = [UIColor redColor];
     NSArray *leftTitles = @[@"第二组第一个",@"第二组第二个"];
     NSArray *rightTitles = @[@"2",@"1",@"女",@"点击设置生日",@"点击设置学校",@"点击设置地区",@"点击设置签名"];
     NSArray *types = @[
@@ -77,6 +84,8 @@
     sectionModel.sectionHeaderTitle = @"GHSectionTest";
     sectionModel.sectionHeaderHeight = 44;
     sectionModel.sectionType = GHModelSectionTypeFirst;
+    sectionModel.sectionBackGroundColor = [UIColor yellowColor];
+
     sectionModel.headerIdentifier = @"GHSectionTest";
     NSArray *leftTitles = @[@"第一组",@"抖音ID",@"性别",@"生日",@"学校",@"地区",@"签名"];
     NSArray *rightTitles = @[@"水冰月",@"123456",@"女",@"点击设置生日",@"点击设置学校",@"点击设置地区",@"点击设置签名"];
