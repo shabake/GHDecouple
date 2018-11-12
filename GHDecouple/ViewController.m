@@ -45,8 +45,6 @@
     self.dataSource = [[GHModelHelper alloc]initWithIdentifier:@"UITableViewCellID" headerIdentifier:@"" table:self.tableView configurationSectionHeaderHeight:^(GHModel *model, GHModelHelper * _Nonnull modelHelper) {
         modelHelper.sectionHeaderHeight = model.sectionHeaderHeight;
     } configurationSectionHeader:^(GHModel *model, NSInteger section, GHModelHelper * _Nonnull modelHelper, id  _Nonnull view) {
-        modelHelper.headerIdentifier = model.headerIdentifier;
-
         if (model.sectionType == GHModelSectionTypeFirst) {
             if ([view isKindOfClass:[GHSectionHeader class]]) {
                 GHSectionHeader *sectionHeader = (GHSectionHeader *)view;
@@ -69,6 +67,7 @@
         cell.rowMData = rowMData;
     } selectBlock:^(GHModel *model, NSIndexPath * _Nonnull indexPath, UITableView * _Nonnull table, GHModelHelper * _Nonnull modelHelper) {
     }];
+    
     [self.dataSource addDataArray:[GHModel creatModelData]];
     self.tableView.dataSource = self.dataSource;
     self.tableView.delegate = self.dataSource;

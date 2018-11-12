@@ -53,7 +53,6 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 /** 动态高度 */
 @property (nonatomic , assign) CGFloat sectionHeaderHeight;
 @property (nonatomic , assign) NSInteger count;
-
 /** 添加数据源 */
 - (void)addDataArray:(NSArray <GHModel *> *)dataArray;
 /** 刷新table */

@@ -84,7 +84,6 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     id model = [self.dataArray by_ObjectAtIndex:section];
     NSString *headerIdentifier = self.dataArray[section].headerIdentifier;
-    NSLog(@"headerIdentifier%@",headerIdentifier);
     id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier: headerIdentifier];
     if (sectionHeader == nil) {
         sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:headerIdentifier];
