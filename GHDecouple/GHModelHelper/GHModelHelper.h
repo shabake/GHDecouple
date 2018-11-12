@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "GHModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class GHModelHelper,GHSectionHeader;
 typedef void (^ConfigurationCellCount)(id model,NSInteger section,GHModelHelper *modelHelper);
 typedef void (^ConfigurationCellHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
-typedef void (^ConfigurationSectionHeaderHeight)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper);
+typedef void (^ConfigurationSectionHeaderHeight)(id model,GHModelHelper *modelHelper);
 
-typedef void (^ConfigurationSectionHeader)(id model,NSIndexPath *indexPath,GHModelHelper *modelHelper,id view);
+typedef void (^ConfigurationSectionHeader)(id model,NSInteger section,GHModelHelper *modelHelper,id view);
 
 typedef void (^ConfigurationCellBlock)(id cell, id model,GHModelHelper *modelHelper,NSIndexPath *indexPath);
 typedef void (^SelectBlock) (id model ,NSIndexPath *indexPath ,UITableView *table,GHModelHelper *modelHelper);
@@ -44,7 +45,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 /** 动态高度 */
 @property (nonatomic , assign) CGFloat cellHeight;
 /** 字典数组 */
-@property (nonatomic , strong) NSMutableArray *dataArray;
+@property (nonatomic , strong) NSMutableArray<GHModel *> *dataArray;
 @property (nonatomic, strong) NSString *headerIdentifier;
 
 @property (nonatomic , strong) UIView *sectionHeader;
@@ -54,7 +55,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 @property (nonatomic , assign) NSInteger count;
 
 /** 添加数据源 */
-- (void)addDataArray:(NSArray *)dataArray;
+- (void)addDataArray:(NSArray <GHModel *> *)dataArray;
 /** 刷新table */
 - (void)reloadData;
 

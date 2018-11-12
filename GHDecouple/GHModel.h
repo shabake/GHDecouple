@@ -40,6 +40,7 @@ typedef NS_ENUM (NSUInteger,GHModelCellType) {
 @property (nonatomic , strong)UIColor *sectionHeaderBackGroundColor;
 @property (nonatomic , strong)NSArray *items;
 @property (nonatomic , strong)UIColor *sectionBackGroundColor;
+@property (nonatomic , assign)BOOL on;
 
 + (NSArray *)creatModelData;
 @end

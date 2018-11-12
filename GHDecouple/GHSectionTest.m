@@ -17,10 +17,9 @@
 @implementation GHSectionTest
 
 - (void)setRowMData:(GHModel *)rowMData {
-//    _rowMData = rowMData;
-//    self.title.text = rowMData.sectionHeaderTitle;;
-//    self.contentView.backgroundColor = rowMData.sectionBackGroundColor;
-
+    _rowMData = rowMData;
+    self.title.text = rowMData.sectionHeaderTitle;;
+    self.contentView.backgroundColor = rowMData.sectionBackGroundColor;
 }
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     if (self == [super initWithReuseIdentifier:reuseIdentifier]) {
@@ -30,7 +29,6 @@
 }
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
-
     }
     return self;
 }
@@ -40,18 +38,23 @@
     [self.title mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(20);
-
     }];
+    
     [self.contentView addSubview:self.switched];
     [self.switched mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView).offset(-20);
         make.centerY.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-20);
     }];
 }
 
+- (void)switched: (UISwitch *)switched {
+
+}
 - (UISwitch *)switched {
     if (_switched == nil) {
         _switched = [[UISwitch alloc]init];
+        _switched.on = NO;
+        [_switched addTarget:self action:@selector(switched:) forControlEvents:UIControlEventValueChanged];
     }
     return _switched;
 }
@@ -62,7 +65,7 @@
         _title.textColor = [UIColor lightGrayColor];
         _title.font = [UIFont systemFontOfSize:15];
         _title.backgroundColor = [UIColor clearColor];
-        _title.text = @"2222";
+        _title.text = @"adadaasdasdsadasd";
     }
     return _title;
 }

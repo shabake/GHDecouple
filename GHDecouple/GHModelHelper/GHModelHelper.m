@@ -10,7 +10,7 @@
 #import "NSArray+Bounds.h"
 #import <objc/runtime.h>
 #import "GHSectionHeader.h"
-
+#import "GHModel.h"
 @interface GHModelHelper()
 @property (nonatomic, strong) NSString *cellIdentifier;
 
@@ -23,6 +23,7 @@
 @property (nonatomic, copy)ConfigurationSectionHeader configurationSectionHeader;
 @end
 @implementation GHModelHelper
+
 - (id)initWithIdentifier:(NSString *)identifier headerIdentifier: (NSString *)headerIdentifier table: (UITableView *)table
 configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
@@ -34,11 +35,9 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
         self.configurationCellCount = configurationCellCount;
         self.configurationCellHeight = configurationCellHeight;
         self.configurationSectionHeader = configurationSectionHeader;
-
         self.selectBlock = selectBlock;
         self.table = table;
         self.headerIdentifier = @"";
-        
     }
     return self;
 }
@@ -47,7 +46,7 @@ configurationSectionHeaderHeight: (ConfigurationSectionHeaderHeight)configuratio
 configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHeader
   configurationCellCount: (ConfigurationCellCount)configurationCellCount
  configurationCellHeight: (ConfigurationCellHeight)configurationCellHeight
-           configuration:(ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock {
+           configuration: (ConfigurationCellBlock)configuration selectBlock: (SelectBlock)selectBlock {
     
     if(self = [super init]) {
         self.cellIdentifier = identifier;
@@ -56,15 +55,13 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
         self.configurationCellHeight = configurationCellHeight;
         self.configurationSectionHeader = configurationSectionHeader;
         self.configurationSectionHeaderHeight = configurationSectionHeaderHeight;
-
         self.selectBlock = selectBlock;
         self.table = table;
         self.headerIdentifier = @"";
-
     }
     return self;
 }
-- (void)addDataArray:(NSArray *)dataArray {
+- (void)addDataArray:(NSArray <GHModel *>*)dataArray {
     if(!dataArray) return;
     
     if (self.dataArray.count > 0) {
@@ -72,7 +69,6 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
     }
     [self.dataArray addObjectsFromArray:dataArray];
 }
-
 - (void)reloadData {
     [self.table reloadData];
 }
@@ -81,19 +77,20 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
     id model = [self.dataArray by_ObjectAtIndex:section];
   
     if (self.configurationSectionHeaderHeight) {
-        self.configurationSectionHeaderHeight(model, [NSIndexPath indexPathForRow:0 inSection:section], self);
+        self.configurationSectionHeaderHeight(model, self);
     }
     return self.sectionHeaderHeight;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     id model = [self.dataArray by_ObjectAtIndex:section];
-
-    id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier:self.headerIdentifier];
-    if (!sectionHeader) {
-        sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:self.headerIdentifier];
+    NSString *headerIdentifier = self.dataArray[section].headerIdentifier;
+    NSLog(@"headerIdentifier%@",headerIdentifier);
+    id sectionHeader = [tableView dequeueReusableHeaderFooterViewWithIdentifier: headerIdentifier];
+    if (sectionHeader == nil) {
+        sectionHeader = [[GHSectionHeader alloc]initWithReuseIdentifier:headerIdentifier];
     }
     if (self.configurationSectionHeader) {
-        self.configurationSectionHeader(model, [NSIndexPath indexPathForRow:0 inSection:section], self, sectionHeader);
+        self.configurationSectionHeader(model, section, self, sectionHeader);
     }
     return sectionHeader;
 }
@@ -107,7 +104,6 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
 
 #pragma mark - 返回几组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
     return self.dataArray.count;
 }
 #pragma mark - 返回每组多少行
@@ -156,7 +152,7 @@ configurationSectionHeader: (ConfigurationSectionHeader)configurationSectionHead
     }
     return _sectionHeaders;
 }
-- (NSMutableArray *)dataArray {
+- (NSMutableArray <GHModel *>*)dataArray {
     if (_dataArray == nil) {
         _dataArray = [NSMutableArray array];
     }

@@ -44,20 +44,25 @@
     [dataArray addObject:[self creatFirst]];
     [dataArray addObject:[self creatSecond]];
     [dataArray addObject:[self creatFirst]];
-    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
-    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
-    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
-    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
-    [dataArray addObject:[self creatSecond]];    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
+    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
+    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
+    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
+    [dataArray addObject:[self creatFirst]];
+    [dataArray addObject:[self creatSecond]];
+    [dataArray addObject:[self creatFirst]];
     [dataArray addObject:[self creatSecond]];
     return dataArray.copy;
 }
 
 + (GHModel *)creatSecond {
     GHModel *sectionModel = [[GHModel alloc]init];
-    sectionModel.sectionHeaderTitle = @"sectionHeader";
+    sectionModel.sectionHeaderTitle = @"GHSectionTest";
     sectionModel.sectionHeaderHeight = 100;
-    sectionModel.headerIdentifier = @"sectionHeader";
+    sectionModel.headerIdentifier = @"GHSectionTest";
     sectionModel.sectionType = GHModelSectionTypeSecond;
     sectionModel.sectionBackGroundColor = [UIColor redColor];
     NSArray *leftTitles = @[@"第二组第一个",@"第二组第二个"];
@@ -66,7 +71,7 @@
                        @(GHModelCellTypeName),
                            @(GHModelCellTypeName),
                       ];
-    NSMutableArray *dataArray = [NSMutableArray array];
+    NSMutableArray <GHModel *>*dataArray = [NSMutableArray array];
     for (NSInteger index = 0; index < leftTitles.count; index++) {
         GHModel *model = [[GHModel alloc]init];
         model.leftTitle = [NSString stringWithFormat:@"第%d组红包",2];
@@ -81,12 +86,11 @@
 }
 + (GHModel *)creatFirst {
     GHModel *sectionModel = [[GHModel alloc]init];
-    sectionModel.sectionHeaderTitle = @"GHSectionTest";
+    sectionModel.sectionHeaderTitle = @"sectionHeader";
     sectionModel.sectionHeaderHeight = 44;
     sectionModel.sectionType = GHModelSectionTypeFirst;
-    sectionModel.sectionBackGroundColor = [UIColor yellowColor];
-
-    sectionModel.headerIdentifier = @"GHSectionTest";
+    sectionModel.sectionBackGroundColor = [UIColor blueColor];
+    sectionModel.headerIdentifier = @"sectionHeader";
     NSArray *leftTitles = @[@"第一组",@"抖音ID",@"性别",@"生日",@"学校",@"地区",@"签名"];
     NSArray *rightTitles = @[@"水冰月",@"123456",@"女",@"点击设置生日",@"点击设置学校",@"点击设置地区",@"点击设置签名"];
     NSArray *types = @[    @(GHModelCellTypeName),
@@ -103,6 +107,7 @@
         model.rightTitle = [NSString stringWithFormat:@"第%ld个",(long)index];
         NSNumber *typeNum = [types by_ObjectAtIndex:index];
         model.cellType = typeNum.integerValue;
+        model.on = NO;
         if (model.cellType == GHModelCellTypeId) {
             model.cellHeight = 80;
             model.rightDetails = @"只能修改一次,只允许包含\"字母.数字.下划线和点\".最长16个字符";
